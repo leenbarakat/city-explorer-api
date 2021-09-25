@@ -1,0 +1,78 @@
+
+
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Weather Forecast</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    
+    <body>
+    <h1>Forecast Weather</h1>
+    <table>
+        <% for(var i=0; i < result.length; i++) { %>
+           <tr>
+             <td><%= result[i].description %></td>
+             <td><%= result[i].date %></td>
+           </tr>
+        <% } %>
+    </table>
+    
+    
+        <section class="vh-100">
+            <div class="container py-5 h-100">
+          
+              <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="">
+          
+                  <h3 class="mb-4 pb-2 fw-normal">Check the weather forecast</h3>
+          
+                  <div class="input-group rounded mb-3">
+                    <form class="form-inline" action="/search-city" method="post">
+                    <input type="text" class="form-control rounded" placeholder="City" aria-label="Search"
+                      aria-describedby="search-addon" name="city" />
+                      <button type="submit" class="btn btn-secondary">Check!</button>
+                    </form>
+                  </div>
+          
+                  <div class="card-deck">
+                  <% for(var i=0; i < result.length; i++) { %>
+                  <div class="card shadow-0 border">
+                    <div class="card-body p-4">
+          
+                      <h4 class="mb-1 sfw-normal"><%= result[i].city_name %></h4>
+                      <p class="mb-2">Date <strong><%= result[i].date %></strong></p>
+                      <p>Feels like: <strong>-----</strong></p>
+                      <p>Max: <strong><%= result[i].low_temp %>°C</strong>, Min: <strong><%= result[i].high_temp %>°C</strong></p>
+          
+                      <div class="d-flex flex-row align-items-center">
+                        <p class="mb-0 me-4"><%= result[i].description %></p>
+                        <i class="fas fa-cloud fa-3x" style="color: #eee;"></i>
+                      </div>
+          
+                    </div>
+                  </div>
+                  <% } %>
+                  </div>
+    
+    
+          
+                </div>
+              </div>
+          
+            </div>
+          </section>
+    </body>
+    
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <script>
+    $( "#search-addon" ).alert('hi')
+    </script>
+    
+    </body>
+    </html>
