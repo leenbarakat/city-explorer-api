@@ -3,6 +3,7 @@ require('dotenv').config('./.env')
 const express = require('express')
 const cors = require('cors')
 const fs = require('fs')
+const { Recoverable } = require('repl')
 
 const app = express()
 const port = process.env.PORT
@@ -17,18 +18,17 @@ app.get('/', (req, res) => {
 })
 
 app.get('/weather/:nameCity', async (req,res)=>{
-    let result=await  readWeatherFile(req)
-        res.react(result)
-
+        let result = await readWeatherFile(req)
+        res.json(result)
 })
 
-
+app.get('/movies', (req,res)=>{
+    res.json("working")
+})
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
-
-
 
 
 const readWeatherFile = (req) =>{
@@ -48,6 +48,8 @@ const readWeatherFile = (req) =>{
                     if(searchQuery === records[i].city_name){
                         let city = records[i].data
                         let city_name = records[i].city_name
+                        let lon = records[i].lon
+                        let lat = records[i].lat
                         for (let c in city){
                             result.push({
                                 // description:`Low of ${city[c].low_temp} , high of ${city[c].high_temp} with ${city[c].weather.description} `,
@@ -56,7 +58,9 @@ const readWeatherFile = (req) =>{
                                 date:`${city[c].datetime}`,
                                 low_temp:`${city[c].low_temp}`,
                                 high_temp: `${city[c].high_temp}`,
-                                description: `${city[c].weather.description}`
+                                description: `${city[c].weather.description}`,
+                                lon:lon,
+                                lat:lat
                             })
                         }
                         resolve(result)
